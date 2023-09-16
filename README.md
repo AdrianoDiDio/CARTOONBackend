@@ -8,7 +8,7 @@ Table of contents
 * [Deploy](#deploy)
 
 # CARTOON Backend
-A simple REST API that handles a list of camera that has the ability to return the data based on geographical coordinates, used by https://github.com/AdrianoDiDio/CARTOON application.
+A simple REST API that handles a list of camera and has the ability to query the data based on geographical coordinates, used by https://github.com/AdrianoDiDio/CARTOON application.
 
 Requirements
 ============
@@ -73,8 +73,8 @@ Deploy
 The API can be deployed using the given NGINX config file.
 There are two configuration available:'CartoonServiceBackend.conf' and 'CartoonServiceStreamingServer.conf'.
 The first one is used to deploy Django and needs to be configured using the path where the repository has been cloned.
-The latter one is used to deploy a streaming server that will listen on the root path of the local machine.
-When the web server is up, the streaming can be started using FFMPEG:
+The latter one is used to deploy a streaming server that will listen on the root path of the local machine at the given port.
+When the web server is up, the streaming can be served using FFMPEG:
 ```bash
 $ ffmpeg -re -i "TestStream.mkv" -c:v copy -c:a aac -ar 44100 -ac 1 -f flv https://IpAddress:Port/
 ```
