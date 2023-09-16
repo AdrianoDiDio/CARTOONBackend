@@ -5,6 +5,7 @@ Table of contents
 * [Table of contents](#table-of-contents)
 * [Requirements](#requirements)
 * [Installation](#installation)
+* [Deploy](#deploy)
 
 # CARTOON Backend
 A simple REST API that handles a list of camera that has the ability to return the data based on geographical coordinates, used by https://github.com/AdrianoDiDio/CARTOON application.
@@ -14,7 +15,7 @@ Requirements
 This guide assumes that a Linux distribution is used, commands for Windows are similar but requires some steps to get the required files.
 In order to setup this package we need to install python3,pip,mysql using a simple bash command (Note that sudo may be required in order to install it):
 ```bash
-$ apt-install python3,pip,mysql-server
+$ apt-install python3,pip,mysql-server,ffmpeg,nginx
 ```
 After installing the required packages the installation can proceed.
 
@@ -66,4 +67,14 @@ An SQL script is provided within the repository containing a list of test camera
 E.G:
 ```bash
 $ mysql -D DBName -u Username -p < CameraTable.sql
+```
+Deploy
+============
+The API can be deployed using the given NGINX config file.
+There are two configuration available:'CartoonServiceBackend.conf' and 'CartoonServiceStreamingServer.conf'.
+The first one is used to deploy Django and needs to be configured using the path where the repository has been cloned.
+The latter one is used to deploy a streaming server that will listen on the root path of the local machine.
+When the web server is up, the streaming can be started using FFMPEG:
+```bash
+$ ffmpeg -re -i "TestStream.mkv" -c:v copy -c:a aac -ar 44100 -ac 1 -f flv https://IpAddress:Port/
 ```
